@@ -1,0 +1,19 @@
+@mixin font-size($value) {
+  font-size: #{$value}px !important;
+}
+
+@each $font-size-value in $font-size-values {
+  .fs-#{$font-size-value} {
+    @include font-size($font-size-value)
+  }
+}
+
+@each $breakpoint, $width in $breakpoints {
+  @each $font-size-value in $font-size-values {
+    .fs-#{$breakpoint}-#{$font-size-value} {
+      @media (min-width: $width) {
+        @include font-size($font-size-value)
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@mixin margin-bottom($value) {
+  margin-bottom: #{$value}px !important;
+}
+
+@each $margin-bottom-value in $margin-bottom-values {
+  .mb-#{$margin-bottom-value} {
+    @include margin-bottom($margin-bottom-value)
+  }
+}
+
+@each $breakpoint, $width in $breakpoints {
+  @each $margin-bottom-value in $margin-bottom-values {
+    .mb-#{$breakpoint}-#{$margin-bottom-value} {
+      @media (min-width: $width) {
+        @include margin-bottom($margin-bottom-value)
+      }
+    }
+  }
+}

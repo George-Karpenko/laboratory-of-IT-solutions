@@ -1,0 +1,19 @@
+@mixin gap($value) {
+  gap: #{$value}px;
+}
+
+@each $gap-value in $gap-values {
+  .gap-#{$gap-value} {
+    @include gap($gap-value)
+  }
+}
+
+@each $breakpoint, $width in $breakpoints {
+  @each $gap-value in $gap-values {
+    .gap-#{$breakpoint}-#{$gap-value} {
+      @media (min-width: $width) {
+        @include gap($gap-value);
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+@mixin create-class($class-name, $class-value, $properties) {
+  $class-suffix: if($class-value != "", "-#{$class-value}", "");
+
+  .#{$class-name}#{$class-suffix} {
+    @each $property, $value in $properties {
+      #{$property}: #{$value} !important;
+    }
+  }
+
+  @each $breakpoint, $width in $breakpoints {
+    .#{$class-name}-#{$breakpoint}#{$class-suffix} {
+      @media (min-width: $width) {
+        @each $property, $value in $properties {
+          #{$property}: #{$value} !important;
+        }
+      }
+    }
+  }
+}
+
+// WIDTH
+
+@include create-class(w, 50, (width: 50%));
+@include create-class(w, 100, (width: 100%));
+@include create-class(w, auto, (width: auto));
+
+// TEXT ALIGN
+
+@include create-class(text, center, (text-align: center));
+@include create-class(text, start, (text-align: start));
+
+// DISPLAY
+
+@include create-class(d, block, (display: block));
+@include create-class(d, flex, (display: flex));
+@include create-class(d, none, (display: none));
+
+// FLEX DIRECTION
+
+@include create-class(flex, column, (flex-direction: column));
+@include create-class(flex, column-reverse, (flex-direction: column-reverse));
+@include create-class(flex, row, (flex-direction: row));
+@include create-class(flex, row-reverse, (flex-direction: row-reverse));
+
+// JUSTIFY CONTENT
+
+@include create-class(justify-content, center, (justify-content: center));
+@include create-class(justify-content, between, (justify-content: space-between));
+@include create-class(justify-content, start, (justify-content: flex-start));
+
+// ALIGN ITEMS
+
+@include create-class(align-items, center, (align-items: center));
+@include create-class(align-items, start, (align-items: flex-start));
+
+// COLUMNS
+
+@include create-class(col, '', (flex: 1 0 0%));
+@include create-class(col, 6, (flex: 0 0 auto, width: 50%));
+
+// ORDER
+
+@include create-class(order, 0, (order: 0));
+@include create-class(order, 1, (order: 1));
+@include create-class(order, 2, (order: 2));
+@include create-class(order, 3, (order: 3));
+@include create-class(order, 4, (order: 4));
+@include create-class(order, 5, (order: 5));
+
+// FLEX GROW
+
+@include create-class(flex, grow-1, (flex-grow: 1));
