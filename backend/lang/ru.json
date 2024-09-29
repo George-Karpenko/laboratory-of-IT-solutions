@@ -1,0 +1,23 @@
+{
+    "Create :resource": "Создать :resource",
+    "Creating a new :resource": "Создать новый :resource",
+    "Edit :resource": "Изменить :resource",
+    "New :resource": "Новый :resource",
+    ":resource was removed": ":Resource был удалён",
+    "Update": "Обновить",
+    "Title": "Заголовок",
+    "Sub title": "Второй заголовок",
+    "Url": "Ссылка для перехода",
+    "Large web banner image": "Большое изображение для веб баннера",
+    "Create new": "Создать",
+    "slide": "слайд",
+    "Enter a title": "Стройка",
+    "Enter a sub-title": "В труднодоступных местах",
+    "Enter a url": "https://...",
+    "Slides": "Слайды",
+    "You have successfully created a :resource.": "Вы успешно создали :resource.",
+    "You have successfully deleted the :resource.": "Вы успешно удалили :resource.",
+    "Once the :resource is deleted, all of its resources and data will be permanently deleted.": "Как только :resource будет удален, все ее ресурсы и данные будут удалены безвозвратно.",
+    "Set a position": "Задать позицию",
+    "Order": "Порядок"
+}

@@ -1,29 +1,38 @@
 <template>
-  <div class="box-intro">
+  <div
+    v-if="slideStore.slides.length > 0"
+    class="box-intro"
+    :style="`background-image: url(${slideStore.slide.photo})`"
+    :key="slideStore.slideIndex"
+  >
     <Header theme="white" :is-fixed="true" />
 
     <div class="content-container">
       <div class="arrow-left">
-        <button type="button">
+        <button type="button" @click="slideStore.prevSlide">
           <Icon name="arrow-left" />
         </button>
       </div>
 
       <div class="content content-width">
-        <div class="title-1">Стройка</div>
-        <div class="title-2">В труднодоступных <br> местах</div>
+        <div class="title-1">{{ slideStore.slide.title }}</div>
+        <div class="title-2" v-html="slideStore.slide.subTitle"></div>
 
-        <div class="d-flex align-items-center justify-content-center justify-content-lg-start gap-10 mt-48 mt-lg-0">
+        <div
+          class="d-flex align-items-center justify-content-center justify-content-lg-start gap-10 mt-48 mt-lg-0"
+        >
           <div class="arrow-left-mobile d-flex d-lg-none">
-            <button type="button">
+            <button type="button" @click="slideStore.prevSlide">
               <Icon name="arrow-left" />
             </button>
           </div>
 
-          <NuxtLink to="/" class="btn-detail">подробнее »</NuxtLink>
+          <NuxtLink :to="slideStore.slide.url" class="btn-detail"
+            >подробнее »</NuxtLink
+          >
 
           <div class="arrow-right-mobile d-flex d-lg-none">
-            <button type="button">
+            <button type="button" @click="slideStore.nextSlide">
               <Icon name="arrow-right" />
             </button>
           </div>
@@ -31,7 +40,7 @@
       </div>
 
       <div class="arrow-right">
-        <button type="button">
+        <button type="button" @click="slideStore.nextSlide">
           <Icon name="arrow-right" />
         </button>
       </div>
@@ -46,7 +55,8 @@
     </template>
 
     <template #description>
-      Предлагаем ваш широкий спектр услуг в сфере строительства, в том числе в условиях крайнего севера
+      Предлагаем ваш широкий спектр услуг в сфере строительства, в том числе в
+      условиях крайнего севера
     </template>
   </ServicesBlock>
 
@@ -56,7 +66,10 @@
     <div class="content-width mx-auto box-title">
       <h2>Технологии</h2>
 
-      <span>В своей работе мы используем только лучшее и современное оборудование</span>
+      <span
+        >В своей работе мы используем только лучшее и современное
+        оборудование</span
+      >
     </div>
 
     <div class="content-width mx-auto technologies">
@@ -67,7 +80,11 @@
           <Icon name="computer" />
 
           <div>
-            <span>В своей работе мы используем только современное оборудование. В своей работе мы используем только лучшее оборудование.  В своей работе мы используем только современное оборудование. </span>
+            <span
+              >В своей работе мы используем только современное оборудование. В
+              своей работе мы используем только лучшее оборудование. В своей
+              работе мы используем только современное оборудование.
+            </span>
 
             <ButtonDetail />
           </div>
@@ -93,46 +110,63 @@
 
     <div class="box-description">
       <div class="description">
-        <p>Небольшое описание компании в несколько строчек текста.  Описание компании в несколько строчек текста. Небольшое описание компании в несколько строчек текста. Небольшое описание компании в несколько строчек текста.</p>
+        <p>
+          Небольшое описание компании в несколько строчек текста. Описание
+          компании в несколько строчек текста. Небольшое описание компании в
+          несколько строчек текста. Небольшое описание компании в несколько
+          строчек текста.
+        </p>
 
-        <p>Небольшое описание компании в несколько строчек текста. Описание компании в несколько строчек текста. </p>
+        <p>
+          Небольшое описание компании в несколько строчек текста. Описание
+          компании в несколько строчек текста.
+        </p>
 
-        <p>Небольшое описание компании в несколько строчек текста. Небольшое описание компании в несколько строчек текста. О компании в несколько строчек текста. Небольшое описание компании в несколько строчек текста.</p>
+        <p>
+          Небольшое описание компании в несколько строчек текста. Небольшое
+          описание компании в несколько строчек текста. О компании в несколько
+          строчек текста. Небольшое описание компании в несколько строчек
+          текста.
+        </p>
       </div>
 
       <ButtonDetail />
     </div>
 
-    <img src="~/assets/images/goals_1.png" class="bg" alt="">
+    <img src="~/assets/images/goals_1.png" class="bg" alt="" />
   </div>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from "vue";
 import ButtonDetail from "~/components/buttons/button-detail/ButtonDetail.vue";
-import {TECHNOLOGIES} from "~/helpers/constants.js";
+import { TECHNOLOGIES } from "~/helpers/constants.js";
 import TechnologiesSlider2 from "~/components/technologies-slider-2/TechnologiesSlider2.vue";
 
 export default defineComponent({
   name: "index",
   components: {
     TechnologiesSlider2,
-    ButtonDetail
+    ButtonDetail,
+  },
+  created() {
+    this.slideStore.saveSlides();
   },
   methods: {
-    updateHeader() {
-
-    }
+    async updateHeader() {},
   },
   computed: {
     technologies() {
-      return TECHNOLOGIES
+      return TECHNOLOGIES;
     },
     innerWidth() {
-      return useMainStore().innerWidth
-    }
-  }
-})
+      return useMainStore().innerWidth;
+    },
+    slideStore() {
+      return useSlideStore();
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -148,24 +182,25 @@ export default defineComponent({
     padding: 0 150px;
     margin: 0 auto;
 
-    .arrow-left button, .arrow-right button {
+    .arrow-left button,
+    .arrow-right button {
       cursor: pointer;
       width: 60px;
       height: 60px;
       padding: 0;
-      background-color: #FFFFFF26;
+      background-color: #ffffff26;
       display: flex;
       justify-content: center;
       align-items: center;
       border: none;
-      color: #FFF;
+      color: #fff;
     }
 
     .content {
       margin-top: 50px;
 
       .title-1 {
-        color: #FFF;
+        color: #fff;
         font-size: 210px;
         line-height: 246.09px;
         font-weight: 700;
@@ -175,7 +210,7 @@ export default defineComponent({
 
       .title-2 {
         margin-top: -23px;
-        color: #FFF;
+        color: #fff;
         font-size: 88px;
         line-height: 96px;
         font-family: "Roboto Condensed";
@@ -190,8 +225,8 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         background-color: transparent;
-        border: 2px solid #FFF;
-        color: #FFF;
+        border: 2px solid #fff;
+        color: #fff;
         font-size: 18px;
         text-transform: uppercase;
         font-family: "Roboto Condensed";
@@ -207,7 +242,8 @@ export default defineComponent({
 .box-technologies {
   margin-top: 110px;
   margin-bottom: 110px;
-  background-image: url(./../assets/images/technologies_bg.png), url(./../assets/images/technologies_bg_2.png);
+  background-image: url(./../assets/images/technologies_bg.png),
+    url(./../assets/images/technologies_bg_2.png);
   background-repeat: no-repeat;
   background-position: 100% calc(100% - 110px), bottom;
   padding-bottom: 110px;
@@ -244,7 +280,7 @@ export default defineComponent({
         padding-right: 39px;
 
         & > svg {
-          color: #006DB1;
+          color: #006db1;
           min-width: 59px;
         }
 
@@ -276,7 +312,7 @@ export default defineComponent({
   margin-top: 110px;
   padding-top: 104px;
   padding-bottom: 110px;
-  background-color: #F6F8F9;
+  background-color: #f6f8f9;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -296,7 +332,7 @@ export default defineComponent({
 
   .box-description {
     position: relative;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     padding: 50px 50px 43px 50px;
     width: min(778px, 100%);
     margin-right: 364px;
@@ -386,21 +422,23 @@ export default defineComponent({
 @media (max-width: 992px) {
   .box-intro {
     .content-container {
-      .arrow-left button, .arrow-right button {
+      .arrow-left button,
+      .arrow-right button {
         display: none;
       }
 
-      .arrow-left-mobile button, .arrow-right-mobile button {
+      .arrow-left-mobile button,
+      .arrow-right-mobile button {
         cursor: pointer;
         width: 50px;
         height: 50px;
         padding: 0;
-        background-color: #FFFFFF26;
+        background-color: #ffffff26;
         display: flex;
         justify-content: center;
         align-items: center;
         border: none;
-        color: #FFF;
+        color: #fff;
       }
 
       .content {
